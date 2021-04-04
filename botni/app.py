@@ -122,10 +122,9 @@ def handle_text_message(event):
             num = int(count[1])
             print(num)
             leng = len(data["result"])
-            b = data["result"][num - 1]
-            anu = f"{b['m4aUrl']}"
+            b = data["result"][num - 1]["m4aUrl"]
             audio_message = AudioSendMessage(
-                original_content_url=anu,
+                original_content_url=b,
                 duration=240000
             )
             line_bot_api.reply_message(
