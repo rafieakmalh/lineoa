@@ -110,7 +110,7 @@ def handle_text_message(event):
             for aa in data["result"]:
                 no += 1
                 ret_ += "\n├≽ {}. {} - {}".format(no,aa["msinger"],aa["msong"])
-            ret_ += "\n╰───「 Joox {}-number 」".format(str(search))
+            ret_ += "\n╰───「 Joox {}-number 」".format(str(hasil))
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text=ret_))
