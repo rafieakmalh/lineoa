@@ -40,6 +40,10 @@ static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
 
 # function for create tmp dir for download content
+def command(text):
+    cmd = text.lower()
+    return cmd
+    
 def removeCmd(cmd, text):
 	rmv = len(key + cmd) + 1
 	return text[rmv:]
@@ -71,7 +75,8 @@ def handle_text_message(event):
     text = event.message.text #simplify for receove message
     sender = event.source.user_id #get user_id
     gid = event.source.sender_id #get group_id
-    if text == 'profile':
+    cmd = command(text)
+    if cmd == 'profile':
         if isinstance(event.source, SourceUser):
             profile = line_bot_api.get_profile(event.source.user_id)
             line_bot_api.reply_message(
@@ -88,10 +93,10 @@ def handle_text_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text="Bot can't use profile API without user ID"))
-    elif text == 'joox':
+    elif cmd == 'joox':
         hasil = removeCmd("joox", text)
         print(hasil)
-    elif text == 'bye':
+    elif cmd == 'bye':
         if isinstance(event.source, SourceGroup):
             line_bot_api.reply_message(
                 event.reply_token, TextMessage(text='Leaving group'))
@@ -104,7 +109,7 @@ def handle_text_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text="Bot can't leave from 1:1 chat"))
-    elif text == 'confirm':
+    elif cmd == 'confirm':
         confirm_template = ConfirmTemplate(text='Do it?', actions=[
             MessageTemplateAction(label='Yes', text='Yes!'),
             MessageTemplateAction(label='No', text='No!'),
@@ -112,7 +117,7 @@ def handle_text_message(event):
         template_message = TemplateSendMessage(
             alt_text='Confirm alt text', template=confirm_template)
         line_bot_api.reply_message(event.reply_token, template_message)
-    elif text == 'buttons':
+    elif cmd == 'buttons':
         buttons_template = ButtonsTemplate(
             title='My buttons sample', text='Hello, my buttons', actions=[
                 URITemplateAction(
@@ -126,7 +131,7 @@ def handle_text_message(event):
         template_message = TemplateSendMessage(
             alt_text='Buttons alt text', template=buttons_template)
         line_bot_api.reply_message(event.reply_token, template_message)
-    elif text == 'carousel':
+    elif cmd == 'carousel':
         carousel_template = CarouselTemplate(columns=[
             CarouselColumn(text='hoge1', title='fuga1', actions=[
                 URITemplateAction(
@@ -143,7 +148,7 @@ def handle_text_message(event):
         template_message = TemplateSendMessage(
             alt_text='Carousel alt text', template=carousel_template)
         line_bot_api.reply_message(event.reply_token, template_message)
-    elif text == 'image_carousel':
+    elif cmd == 'image_carousel':
         image_carousel_template = ImageCarouselTemplate(columns=[
             ImageCarouselColumn(image_url='https://via.placeholder.com/1024x1024',
                                 action=DatetimePickerTemplateAction(label='datetime',
@@ -157,7 +162,7 @@ def handle_text_message(event):
         template_message = TemplateSendMessage(
             alt_text='ImageCarousel alt text', template=image_carousel_template)
         line_bot_api.reply_message(event.reply_token, template_message)
-    elif text == 'imagemap':
+    elif cmd == 'imagemap':
         pass
     else:
         line_bot_api.reply_message(
