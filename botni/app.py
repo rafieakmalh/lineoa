@@ -122,7 +122,7 @@ def handle_text_message(event):
                 event.reply_token,
                 TextMessage(text=anu))
             audio_message = AudioSendMessage(
-                original_content_url='{}'.format(anu)
+                original_content_url='{}'.format(anu),
                 duration=240000
             )
             line_bot_api.reply_message(
