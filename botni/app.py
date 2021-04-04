@@ -5,7 +5,7 @@ import errno
 import os
 import sys
 import tempfile
-import time, random, json, codecs, shutil ,threading, glob, re, base64, string, os, requests, wikipedia, urllib, urllib.parse, atexit, asyncio, traceback, pafy, sys, timeago, argparse
+import time, random, json, codecs, shutil ,threading, glob, re, base64, string, os, requests, urllib, urllib.parse, atexit, asyncio, traceback, pafy, sys, timeago, argparse
 from argparse import ArgumentParser
 
 from flask import Flask, request, abort
