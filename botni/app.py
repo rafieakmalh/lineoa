@@ -38,6 +38,7 @@ handler = WebhookHandler('8e8fc7359faceffb34b78692f50f520f')
 
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
+apiKey = "xPjUogMK-2UM"
 
 # function for create tmp dir for download content
 def command(text):
@@ -95,9 +96,30 @@ def handle_text_message(event):
                 TextMessage(text="Bot can't use profile API without user ID"))
     elif cmd.startswith('joox '):
         hasil = removeCmd("joox", text)
-        line_bot_api.reply_message(
+        count = hasil.split("-")
+        headers = {"apiKey": apiKey}
+        r = requests.get("https://api.be-team.me/joox?search="+search,headers=headers)
+        data = json.loads(r.text)
+        if len(count) == 1:
+            no = 0
+            ret_ = "╭───「 JOOX LIST {} 」".format(gwlogo["logo"],gwlogo["logo"])
+            for aa in data["result"]:
+                no += 1
+                ret_ += "\n├≽ {}. {} - {}".format(no,aa["msinger"],aa["msong"])
+            ret_ += "\n╰───「 Joox {}-number 」".format(str(search))
+            line_bot_api.reply_message(
                 event.reply_token,
-                TextMessage(text=hasil))
+                TextMessage(text=ret_))
+        elif len(count) == 2:
+            num = int(count[1])
+            b = data["result"][num - 1]
+            anu = f"{b['m4aUrl']}"
+            audio_message = AudioSendMessage(
+                original_content_url=f'{anu}',
+                duration=240000
+            )
+            line_bot_api.reply_message(
+                event.reply_token, audio_message)            
     elif cmd == 'bye':
         if isinstance(event.source, SourceGroup):
             line_bot_api.reply_message(
@@ -166,6 +188,9 @@ def handle_text_message(event):
         line_bot_api.reply_message(event.reply_token, template_message)
     elif cmd == 'imagemap':
         pass
+    else:
+        line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(text=event.message.text))
 
 
 @handler.add(MessageEvent, message=LocationMessage)
