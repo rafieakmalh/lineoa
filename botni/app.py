@@ -95,7 +95,9 @@ def handle_text_message(event):
                 TextMessage(text="Bot can't use profile API without user ID"))
     elif cmd == 'joox':
         hasil = removeCmd("joox", text)
-        print(hasil)
+        line_bot_api.reply_message(
+                event.reply_token,
+                TextMessage(text=hasil))
     elif cmd == 'bye':
         if isinstance(event.source, SourceGroup):
             line_bot_api.reply_message(
@@ -286,9 +288,6 @@ def handle_beacon(event):
 
 
 if __name__ == "__main__":
-    # create tmp dir for download content
     make_static_tmp_dir()
-
-    # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
