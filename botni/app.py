@@ -101,30 +101,27 @@ def handle_text_message(event):
     elif cmd.startswith('joox '):
         hasil = removeCmd("joox", text)
         count = hasil.split("-")
+        search = str(count[0])
         headers = {"apiKey": apiKey}
-        r = requests.get("https://api.be-team.me/joox?search="+hasil,headers=headers)
+        r = requests.get("https://api.be-team.me/joox?search="+search,headers=headers)
         data = json.loads(r.text)
-        if len(count) == 1:
-            r = requests.get("https://api.be-team.me/joox?search="+hasil,headers=headers)
-            data = json.loads(r.text)
+        if len(count) == 1:            
             no = 0
             ret_ = "╭───「 JOOX LIST {} 」".format(gwlogo["logo"],gwlogo["logo"])
             for aa in data["result"]:
                 no += 1
                 ret_ += "\n├≽ {}. {} - {}".format(no,aa["msinger"],aa["msong"])
-            ret_ += "\n╰───「 Joox {}-number 」".format(str(hasil))
+            ret_ += "\n╰───「 Joox {}-number 」".format(str(search))
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text=ret_))
         elif len(count) == 2:
-            r = requests.get("https://api.be-team.me/joox?search="+hasil,headers=headers)
-            data = json.loads(r.text)
             num = int(count[1])
             print(num)
             leng = len(data["result"])
-            b = data["result"][num - 1]["m4aUrl"]
+            path = data["result"][num - 1]["m4aUrl"]
             audio_message = AudioSendMessage(
-                original_content_url=b,
+                original_content_url=path,
                 duration=240000
             )
             line_bot_api.reply_message(
