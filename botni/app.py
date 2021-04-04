@@ -41,7 +41,7 @@ static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 apiKey = "xPjUogMK-2UM"
 
 gwlogo = {
-    "logo": "⸙͎",
+    "logo": "⚘",
 }
 
 # function for create tmp dir for download content
