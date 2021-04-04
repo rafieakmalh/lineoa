@@ -93,7 +93,7 @@ def handle_text_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text="Bot can't use profile API without user ID"))
-    elif cmd == 'joox':
+    elif cmd.startswith('joox '):
         hasil = removeCmd("joox", text)
         line_bot_api.reply_message(
                 event.reply_token,
@@ -166,9 +166,6 @@ def handle_text_message(event):
         line_bot_api.reply_message(event.reply_token, template_message)
     elif cmd == 'imagemap':
         pass
-    else:
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text=event.message.text))
 
 
 @handler.add(MessageEvent, message=LocationMessage)
