@@ -45,7 +45,7 @@ def command(text):
     return cmd
     
 def removeCmd(cmd, text):
-	rmv = len(key + cmd) + 1
+	rmv = len(cmd) + 1
 	return text[rmv:]
 
 def make_static_tmp_dir():
