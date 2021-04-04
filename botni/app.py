@@ -116,14 +116,14 @@ def handle_text_message(event):
                 TextMessage(text=ret_))
         elif len(count) == 2:
             num = int(count[1])
-            b = data["result"][num - 1]
+            b = data["result"][num]
             anu = f"{b['m4aUrl']}"
             audio_message = AudioSendMessage(
                 original_content_url=f'{anu}',
                 duration=240000
             )
             line_bot_api.reply_message(
-                event.reply_token, audio_message)            
+                event.reply_token, audio_message)
     elif cmd == 'bye':
         if isinstance(event.source, SourceGroup):
             line_bot_api.reply_message(
