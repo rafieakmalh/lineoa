@@ -105,6 +105,8 @@ def handle_text_message(event):
         r = requests.get("https://api.be-team.me/joox?search="+hasil,headers=headers)
         data = json.loads(r.text)
         if len(count) == 1:
+            r = requests.get("https://api.be-team.me/joox?search="+hasil,headers=headers)
+            data = json.loads(r.text)
             no = 0
             ret_ = "╭───「 JOOX LIST {} 」".format(gwlogo["logo"],gwlogo["logo"])
             for aa in data["result"]:
@@ -115,18 +117,15 @@ def handle_text_message(event):
                 event.reply_token,
                 TextMessage(text=ret_))
         elif len(count) == 2:
+            r = requests.get("https://api.be-team.me/joox?search="+hasil,headers=headers)
+            data = json.loads(r.text)
             num = int(count[1])
+            print(num)
             leng = len(data["result"])
             b = data["result"][num - 1]
             anu = f"{b['m4aUrl']}"
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextMessage(text=leng))
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextMessage(text=anu))
             audio_message = AudioSendMessage(
-                original_content_url='{}'.format(anu),
+                original_content_url=f'{anu}',
                 duration=240000
             )
             line_bot_api.reply_message(
