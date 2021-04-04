@@ -98,7 +98,7 @@ def handle_text_message(event):
         hasil = removeCmd("joox", text)
         count = hasil.split("-")
         headers = {"apiKey": apiKey}
-        r = requests.get("https://api.be-team.me/joox?search="+search,headers=headers)
+        r = requests.get("https://api.be-team.me/joox?search="+hasil,headers=headers)
         data = json.loads(r.text)
         if len(count) == 1:
             no = 0
