@@ -24,7 +24,7 @@ from linebot.models import (
     PostbackTemplateAction, DatetimePickerTemplateAction,
     CarouselTemplate, CarouselColumn, PostbackEvent,
     StickerMessage, StickerSendMessage, LocationMessage, LocationSendMessage,
-    ImageMessage, VideoMessage, AudioMessage, FileMessage,
+    ImageMessage, VideoMessage, AudioMessage, FileMessage, AudioSendMessage,
     UnfollowEvent, FollowEvent, JoinEvent, LeaveEvent, BeaconEvent
 )
 
@@ -41,7 +41,7 @@ static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 apiKey = "xPjUogMK-2UM"
 
 gwlogo = {
-    "logo": "⚘",
+    "logo": "⸙͎",
 }
 
 # function for create tmp dir for download content
@@ -110,7 +110,7 @@ def handle_text_message(event):
             for aa in data["result"]:
                 no += 1
                 ret_ += "\n├≽ {}. {} - {}".format(no,aa["msinger"],aa["msong"])
-            ret_ += "\n╰───「 Joox {}-number 」".format(str(hasil))
+            ret_ += "\n╰───「 Joox {}-number 」".format(str(search))
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text=ret_))
