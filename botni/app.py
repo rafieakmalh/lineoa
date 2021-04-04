@@ -116,8 +116,12 @@ def handle_text_message(event):
                 TextMessage(text=ret_))
         elif len(count) == 2:
             num = int(count[1])
-            b = data["result"][num - 1]   
+            leng = len(data["result"])
+            b = data["result"][num - 1]
             anu = f"{b['m4aUrl']}"
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextMessage(text=leng))
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text=anu))
