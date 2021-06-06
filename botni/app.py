@@ -40,10 +40,6 @@ static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
 apiKey = "p4HvBwnz-n9C"
 
-gwlogo = {
-    "logo": "⸙͎",
-}
-
 # function for create tmp dir for download content
 def command(text):
     cmd = text.lower()
@@ -101,17 +97,19 @@ def handle_text_message(event):
     elif cmd.startswith('joox '):
         hasil = removeCmd("joox", text)
         count = hasil.split("-")
+	print(count)
         search = str(count[0])
         headers = {"apiKey": apiKey}
         r = requests.get("https://api.be-team.me/joox?search="+search,headers=headers)
         data = json.loads(r.text)
+	print(data)
         if len(count) == 1:            
             no = 0
-            ret_ = "╭───「 JOOX LIST {} 」".format(gwlogo["logo"],gwlogo["logo"])
+            ret_ = "「 JOOX LIST 」"
             for aa in data["result"]:
                 no += 1
-                ret_ += "\n├≽ {}. {} - {}".format(no,aa["msinger"],aa["msong"])
-            ret_ += "\n╰───「 Joox {}-number 」".format(str(search))
+                ret_ += "\n{}. {} - {}".format(no,aa["msinger"],aa["msong"])
+            ret_ += "\n「 Joox {}-number 」".format(str(search))
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text=ret_))
