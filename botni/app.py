@@ -243,7 +243,7 @@ def handle_postback(event):
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=event.postback.params['datetime']))
     elif event.postback.data == 'date_postback':
-        line_bot_api.reply_message( sssss
+        line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=event.postback.params['date']))
 
 
