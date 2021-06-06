@@ -100,7 +100,7 @@ def handle_text_message(event):
         print(count)
         search = str(count[0])
         headers = {"apiKey": apiKey}
-        r = requests.get("https://api.be-team.me/joox?search="+search,headers=headers)
+        r = requests.get("https://beapi.me/joox?search="+search,headers=headers)
         print(data)
         data = json.loads(r.text)
         if len(count) == 1:            
