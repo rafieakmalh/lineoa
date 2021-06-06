@@ -97,12 +97,12 @@ def handle_text_message(event):
     elif cmd.startswith('joox '):
         hasil = removeCmd("joox", text)
         count = hasil.split("-")
-	print(count)
+        print(count)
         search = str(count[0])
         headers = {"apiKey": apiKey}
         r = requests.get("https://api.be-team.me/joox?search="+search,headers=headers)
+        print(data)
         data = json.loads(r.text)
-	print(data)
         if len(count) == 1:            
             no = 0
             ret_ = "「 JOOX LIST 」"
